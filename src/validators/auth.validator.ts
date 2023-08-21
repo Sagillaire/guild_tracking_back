@@ -15,5 +15,8 @@ export const RegisterSchema = Joi.object({
         .required(),
     password: Joi
         .string()
+        .required(),
+    code: Joi
+        .string()
         .required()
 })

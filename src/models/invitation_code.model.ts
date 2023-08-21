@@ -10,14 +10,14 @@ const InvitationCodeSchema = new Schema<IInvitationCode>(
             unique: true,
             required: true
         },
+        guild: {
+            type: String,
+            required: true
+        },
         status: {
             type: String,
             default: 'ACTIVE',
             enum: ['ACTIVE', 'INACTIVE']
-        },
-        user_role: {
-            type: String,
-            enum: ['1', '2', '3']
         }
     },
     {

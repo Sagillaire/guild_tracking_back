@@ -4,7 +4,7 @@ export const ReferredSchema = Joi.object({
     code: Joi
         .string()
         .required(),
-    user_role: Joi
+    guild: Joi
         .string()
         .required()
 })

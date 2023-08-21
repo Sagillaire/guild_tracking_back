@@ -1,6 +1,8 @@
 import UserModel from "../models/user.model"
+import { getRequest } from "../utils/getRequest"
 import { IUser } from "../interfaces/user.interface"
 import { encrypt, verify } from "../utils/bcrypt.handle"
+import ReferredModel from "../models/invitation_code.model"
 import { IAuth, IVerifySession } from "../interfaces/auth.interface"
 import { decodeToken, signToken, verifyToken } from "../utils/jwt.handle"
 
@@ -24,7 +26,18 @@ const loginUser = async ({ username, password }: IAuth) => {
     return response
 }
 
-const registerNewUser = async ({ password, username }: IAuth) => {
+const registerNewUser = async ({ password, username, code }: IAuth) => {
+    // VERIY IF USER EXISTS
+    const checkIsCode = await ReferredModel.findOne({ code }).exec()
+    if (!checkIsCode) return 'INVALID_CODE'
+
+    // VERIFY USER UN ALBION DB
+    const findUsersAlbionDb = await getRequest(`https://gameinfo.albiononline.com/api/gameinfo/search?q=${username}`)
+    const verifyUserAlbionDb = findUsersAlbionDb?.players?.find((user: { Name: string }) => username === user.Name)
+    const verifyMatchUserGuild = findUsersAlbionDb?.players?.find((user: { Name: string, GuildName:string }) => (username === user.Name && checkIsCode.guild === user.GuildName))
+    if (!verifyUserAlbionDb) return 'USER_INVALID_ALBION_DB'
+    if (!verifyMatchUserGuild) return 'USER_DOESNT_MATCH_GUILD'
+
     // VERIY IF USER EXISTS
     const checkIsUsername = await UserModel.findOne({ username }).exec()
     if (checkIsUsername) return 'USERNAME_ALREADY_EXISTS'
@@ -32,13 +45,9 @@ const registerNewUser = async ({ password, username }: IAuth) => {
     // HASH PASSWORD AND CREATE USER
     const passHash = await encrypt(password)
 
-    console.log({ CHECK: checkIsUsername, PASS: passHash, username })
-    const registerNewUser = await UserModel.create({
-        username,
-        password: passHash
-    })
+    const response = await UserModel.create({ username, password: passHash })
 
-    return registerNewUser
+    return response
 }
 
 const verifySessionService = async ({ token }: IVerifySession) => {

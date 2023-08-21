@@ -1,8 +1,9 @@
 export interface IAuth {
-    username: string
-    password: string
+    code:       string;
+    username:   string;
+    password:   string;
 }
 
 export interface IVerifySession {
-    token: string;
+    token:      string;
 }

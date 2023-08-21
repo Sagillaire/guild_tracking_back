@@ -14,13 +14,13 @@ const getAllReferredService = async () => {
     return response
 }
 
-const createReferredService = async ({ code, user_role }: IInvitationCode) => {
+const createReferredService = async ({ code, guild }: IInvitationCode) => {
     // VERIY IF CODE EXISTS
     const checkCode = await ReferredModel.findOne({ code }).exec()
     if (checkCode) return 'CODE_ALREADY_EXISTS'
 
     // CREATE CODE
-    const registerNewUser = await ReferredModel.create({ code, user_role })
+    const registerNewUser = await ReferredModel.create({ code, guild })
 
     return registerNewUser
 }

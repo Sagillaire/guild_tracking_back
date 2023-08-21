@@ -4,8 +4,8 @@ import { handleCustomResponse } from "../utils/error.handle";
 
 const loginController = async ({ body }: Request, res: Response) => {
     const response = await loginUser(body)
-    if (response === 'USER_NOT_FOUND' || response === 'INCORRECT_PASSWORD') {
-        handleCustomResponse(res, 403, response)
+    if (['INCORRECT_PASSWORD', 'USER_NOT_FOUND'].includes(response as string)) {
+        handleCustomResponse(res, 403, response as string)
     } else {
         handleCustomResponse(res, 200, 'Success', response)
     }
@@ -13,7 +13,12 @@ const loginController = async ({ body }: Request, res: Response) => {
 
 const registerController = async ({ body }: Request, res: Response) => {
     const response = await registerNewUser(body)
-    res.status(201).json({ response })
+    if (['USER_DOESNT_MATCH_GUILD', 'USER_INVALID_ALBION_DB',
+        'USERNAME_ALREADY_EXISTS', 'INVALID_CODE'].includes(response as string)) {
+        handleCustomResponse(res, 403, response as string)
+    } else {
+        handleCustomResponse(res, 200, 'Success', response)
+    }
 }
 
 const verifySessionController = async ({ body }: Request, res: Response) => {
@@ -22,7 +27,7 @@ const verifySessionController = async ({ body }: Request, res: Response) => {
         handleCustomResponse(res, 200, 'Success!', response)
     } catch (err) {
         const { message } = err as any
-        handleCustomResponse(res, 401, 'Unauthorized!', message )
+        handleCustomResponse(res, 401, 'Unauthorized!', message)
     }
 }
 
