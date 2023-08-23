@@ -14,6 +14,8 @@ export const MapRouteValidation = Joi.object<IMapRoute>({
             .required(),
         map_zone: Joi
             .string()
-            .required()
+            .required(),
+        state: Joi
+            .number()
     })).required()
 });

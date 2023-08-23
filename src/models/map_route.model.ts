@@ -21,6 +21,10 @@ const MapRouteSchema = new Schema<IMapRoute>(
                 map_zone: {
                     type: String,
                     require: true
+                },
+                state: {
+                    type: String,
+                    require: true
                 }
             }
         ]
