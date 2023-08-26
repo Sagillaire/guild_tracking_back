@@ -18,5 +18,7 @@ export const RegisterSchema = Joi.object({
         .required(),
     code: Joi
         .string()
-        .required()
+        .required(),
+    rol: Joi
+        .string()
 })
