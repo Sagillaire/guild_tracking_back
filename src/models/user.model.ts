@@ -14,14 +14,19 @@ const UserSchema = new Schema<IUser>(
             type: String,
             required: true
         },
+        verified: {
+            type: Boolean,
+            default: false,
+        },
+        rol: {
+            type: String,
+            default: 'MEMBER',
+            enum: ['MEMBER', 'OFFICIAL']
+        },
         status: {
             type: String,
             default: 'ACTIVE',
             enum: ['ACTIVE', 'INACTIVE']
-        },
-        verified: {
-            type: Boolean,
-            default: false,
         }
     },
     {
