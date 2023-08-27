@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { getAllMapRouteService, createMapRouteService, getMapRouteByIdService } from "../services/map_route.service";
 
 const getByIdController = async ({ params }: Request, res: Response) => {
-    const response = await getMapRouteByIdService(params?.code)
+    const response = await getMapRouteByIdService(params?.id)
     res.status(200).json({ response })
 }
 

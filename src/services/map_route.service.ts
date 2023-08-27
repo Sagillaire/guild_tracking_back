@@ -2,7 +2,7 @@ import MapRouteModel from "../models/map_route.model"
 import { IMapRoute } from "../interfaces/map_route.interface "
 
 const getMapRouteByIdService = async (id: string) => {
-    const response = await MapRouteModel.findOne({ id }).exec()
+    const response = await MapRouteModel.findOne({ _id: id }).exec()
     if (!response) return 'MAP_ROUTE_NOT_FOUND'
 
     return response
