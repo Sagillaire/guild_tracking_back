@@ -3,7 +3,7 @@ import { getAllMapRouteService, createMapRouteService, getMapRouteByIdService } 
 
 const getByIdController = async ({ params }: Request, res: Response) => {
     const response = await getMapRouteByIdService(params?.id)
-    res.status(200).json({ response })
+    res.status(200).json(response)
 }
 
 const getAllController = async (_: Request, res: Response) => {

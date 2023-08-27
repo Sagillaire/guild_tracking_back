@@ -8,6 +8,10 @@ const MapRouteSchema = new Schema<IMapRoute>(
         created_by: {
             type: String
         },
+        state: {
+            type: Number,
+            default: 1
+        },
         route_info: [
             {
                 time: {

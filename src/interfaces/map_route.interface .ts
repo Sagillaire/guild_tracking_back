@@ -1,5 +1,8 @@
 
 export interface IMapRoute {
+    createdAt:          Date;
+    updatedAt:          Date;
+    state:              number;
     id:                 string;
     created_by:         string;
     route_info:         IRouteInfo[]
