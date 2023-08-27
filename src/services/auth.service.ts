@@ -44,7 +44,6 @@ const registerNewUser = async ({ password, username, code }: IAuth) => {
 
     // HASH PASSWORD AND CREATE USER
     const passHash = await encrypt(password)
-
     const response = await UserModel.create({ username, password: passHash })
 
     return response
@@ -63,8 +62,9 @@ const verifySessionService = async ({ token }: IVerifySession) => {
 
     const response = {
         username: user.username,
-        status: user.status,
         verified: user.verified,
+        status: user.status,
+        rol: user.rol,
         isAuth: true,
         id: user.id,
         token: token

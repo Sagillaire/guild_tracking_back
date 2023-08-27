@@ -8,7 +8,7 @@ interface IUserInfo {
 
 const signToken = async (userInfo: IUserInfo) => {
     const jwt = sign(userInfo, secretToken, {
-        expiresIn: '20s'
+        expiresIn: '8h'
     })
 
     return jwt
