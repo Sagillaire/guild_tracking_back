@@ -11,8 +11,8 @@ const getAllController = async (_: Request, res: Response) => {
     res.status(200).json({ response })
 }
 
-const createMapRouteController = async ({ body }: Request, res: Response) => {
-    const response = await createMapRouteService(body)
+const createMapRouteController = async (req: Request, res: Response) => {
+    const response = await createMapRouteService(req)
     res.status(201).json({ response })
 }
 
