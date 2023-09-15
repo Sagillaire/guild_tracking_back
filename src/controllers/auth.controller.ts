@@ -3,21 +3,29 @@ import { loginUser, registerNewUser, verifySessionService } from "../services/au
 import { handleCustomResponse } from "../utils/error.handle";
 
 const loginController = async ({ body }: Request, res: Response) => {
-    const response = await loginUser(body)
-    if (['INCORRECT_PASSWORD', 'USER_NOT_FOUND'].includes(response as string)) {
-        handleCustomResponse(res, 403, response as string)
-    } else {
-        handleCustomResponse(res, 200, 'Success', response)
+    try {
+        const response = await loginUser(body)
+        if (['INCORRECT_PASSWORD', 'USER_NOT_FOUND'].includes(response as string)) {
+            handleCustomResponse(res, 403, response as string)
+        } else {
+            handleCustomResponse(res, 200, 'Success', response)
+        }
+    } catch (err) {
+        res.status(500).json({ message: 'Internal error.' })
     }
 }
 
 const registerController = async ({ body }: Request, res: Response) => {
-    const response = await registerNewUser(body)
-    if (['USER_DOESNT_MATCH_GUILD', 'USER_INVALID_ALBION_DB',
-        'USERNAME_ALREADY_EXISTS', 'INVALID_CODE'].includes(response as string)) {
-        handleCustomResponse(res, 403, response as string)
-    } else {
-        handleCustomResponse(res, 200, 'Success', response)
+    try {
+        const response = await registerNewUser(body)
+        if (['USER_DOESNT_MATCH_GUILD', 'USER_INVALID_ALBION_DB',
+            'USERNAME_ALREADY_EXISTS', 'INVALID_CODE'].includes(response as string)) {
+            handleCustomResponse(res, 403, response as string)
+        } else {
+            handleCustomResponse(res, 200, 'Success', response)
+        }
+    } catch (err) {
+        res.status(500).json({ message: 'Internal error.' })
     }
 }
 
