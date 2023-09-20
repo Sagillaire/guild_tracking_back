@@ -13,4 +13,14 @@ const getUsersService = async () => {
     return response
 }
 
-export { getUserByIdService, getUsersService }
+const updateUserStateService = async (id: string) => {
+    const userIs = await UserModel.findOne({ _id: id }).exec()
+    if (!userIs) return 'USER_NOT_FOUND'
+
+    const newStatus = userIs.status === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE';
+    const response = await UserModel.updateOne({ _id: id }, { status: newStatus });
+
+    return response
+}
+
+export { getUserByIdService, getUsersService, updateUserStateService }
