@@ -13,7 +13,7 @@ const getUsersService = async () => {
     return response
 }
 
-const updateUserStateService = async (id: string) => {
+const updateUserStateService = async ({}: Request) => {
     const userIs = await UserModel.findOne({ _id: id }).exec()
     if (!userIs) return 'USER_NOT_FOUND'
 

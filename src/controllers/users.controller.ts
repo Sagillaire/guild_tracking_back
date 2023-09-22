@@ -29,4 +29,13 @@ const updateUserStateCtl = async ({ params }: Request, res: Response) => {
     }
 }
 
-export { getUserByIdController, getUsersController, updateUserStateCtl }
+const updateUserCtl = async ({ params, body }: Request, res: Response) => {
+    try {
+        const response = await updateUserStateService({params?.id, body})
+        res.status(200).json({ response })
+    } catch (err) {
+        res.status(500).json({ message: 'Internal error.' })
+    }
+}
+
+export { getUserByIdController, getUsersController, updateUserStateCtl, updateUserCtl }
