@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getUserByIdService, getUsersService, updateUserStateService } from "../services/users.service";
+import { getUserByIdService, getUsersService, updateUserService, updateUserStateService } from "../services/users.service";
 
 const getUserByIdController = async ({ params }: Request, res: Response) => {
     try {
@@ -21,7 +21,6 @@ const getUsersController = async (_: Request, res: Response) => {
 
 const updateUserStateCtl = async ({ params }: Request, res: Response) => {
     try {
-        console.log('object', params)
         const response = await updateUserStateService(params?.id)
         res.status(200).json({ response })
     } catch (err) {
@@ -31,7 +30,7 @@ const updateUserStateCtl = async ({ params }: Request, res: Response) => {
 
 const updateUserCtl = async ({ params, body }: Request, res: Response) => {
     try {
-        const response = await updateUserStateService({params?.id, body})
+        const response = await updateUserService(params?.id, body)
         res.status(200).json({ response })
     } catch (err) {
         res.status(500).json({ message: 'Internal error.' })

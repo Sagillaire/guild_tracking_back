@@ -13,7 +13,7 @@ const getUsersService = async () => {
     return response
 }
 
-const updateUserStateService = async ({}: Request) => {
+const updateUserStateService = async (id: string) => {
     const userIs = await UserModel.findOne({ _id: id }).exec()
     if (!userIs) return 'USER_NOT_FOUND'
 
@@ -23,4 +23,13 @@ const updateUserStateService = async ({}: Request) => {
     return response
 }
 
-export { getUserByIdService, getUsersService, updateUserStateService }
+const updateUserService = async (id: string, { body }: Request) => {
+    const userIs = await UserModel.findOne({ _id: id }).exec()
+    if (!userIs) return 'USER_NOT_FOUND'
+
+    const response = await UserModel.updateOne({ _id: id }, { body });
+
+    return response
+}
+
+export { getUserByIdService, getUsersService, updateUserStateService, updateUserService }
