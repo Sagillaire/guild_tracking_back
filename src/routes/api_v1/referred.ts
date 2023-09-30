@@ -27,6 +27,6 @@ router.get('/:code', getByIdController);
  * @route POST /referred
  * @middleware validatorJoi(ReferredSchema) - Middleware to validate the request body against the ReferredSchema.
  */
-router.post('/', validatorJoi(ReferredSchema), createReferredController);
+router.post('/', validatorJoi(ReferredSchema) as never, createReferredController);
 
 export { router };

@@ -27,6 +27,6 @@ router.get('/:id', getByIdController);
  * @route POST /map-routes
  * @middleware validatorJoi(MapRouteValidation) - Middleware to validate the request body against the MapRouteValidation schema.
  */
-router.post('/', validatorJoi(MapRouteValidation), createMapRouteController);
+router.post('/', validatorJoi(MapRouteValidation) as never, createMapRouteController);
 
 export { router };

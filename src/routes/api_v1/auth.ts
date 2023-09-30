@@ -12,7 +12,7 @@ const router = Router();
  * @route POST /auth/login
  * @middleware validatorJoi(LoginSchema) - Middleware to validate the request body against the LoginSchema.
  */
-router.post('/login', validatorJoi(LoginSchema), loginController);
+router.post('/login', validatorJoi(LoginSchema) as never, loginController);
 
 /**
  * Route to register a new user.
@@ -20,7 +20,7 @@ router.post('/login', validatorJoi(LoginSchema), loginController);
  * @route POST /auth/register
  * @middleware validatorJoi(RegisterSchema) - Middleware to validate the request body against the RegisterSchema.
  */
-router.post('/register', validatorJoi(RegisterSchema), registerController);
+router.post('/register', validatorJoi(RegisterSchema) as never, registerController);
 
 /**
  * Route to verify a user's session.
