@@ -1,19 +1,31 @@
-import { Schema, model } from 'mongoose'
-import { IInvitationCode } from '../interfaces/referred.interface '
+import { Schema, model } from 'mongoose';
+import { IInvitationCode } from '../interfaces/referred.interface ';
 
-/* Se declara el Schema: El esquema es la representacion de las propiedades que se 
-van a guardar en la base de datos */
+/**
+ * Mongoose schema for the InvitationCode entity.
+ */
 const InvitationCodeSchema = new Schema<IInvitationCode>(
     {
+        /**
+         * The unique code for the invitation.
+         */
         code: {
             type: String,
             unique: true,
             required: true
         },
+
+        /**
+         * The guild associated with the invitation code.
+         */
         guild: {
             type: String,
             required: true
         },
+
+        /**
+         * The status of the invitation code (e.g., active or inactive).
+         */
         status: {
             type: String,
             default: 'ACTIVE',
@@ -21,11 +33,13 @@ const InvitationCodeSchema = new Schema<IInvitationCode>(
         }
     },
     {
-        timestamps: true, // Para que guarde la fecha de creacion y actualizacion
-        versionKey: false // Para que no guarde datos por version
+        timestamps: true,
+        versionKey: false
     }
-)
+);
 
-// Implementamos el Schema en el modelo
-const ReferredModel = model('invitation_code', InvitationCodeSchema)
-export default ReferredModel
+/**
+ * Mongoose model for the InvitationCode entity.
+ */
+const ReferredModel = model<IInvitationCode>('invitation_code', InvitationCodeSchema);
+export default ReferredModel;
