@@ -1,28 +1,50 @@
-import { Schema, model } from 'mongoose'
-import { IUser } from '../interfaces/user.interface'
+import { Schema, model } from 'mongoose';
+import { IUser } from '../interfaces/user.interface';
 
-/* Se declara el Schema: El esquema es la representacion de las propiedades que se 
-van a guardar en la base de datos */
+/**
+ * Mongoose schema for the User entity.
+ */
 const UserSchema = new Schema<IUser>(
     {
+        /**
+         * The username of the user.
+         */
         username: {
             type: String,
             unique: true,
             required: true
         },
+
+        /**
+         * The hashed password of the user.
+         */
         password: {
             type: String,
             required: true
         },
+
+        /**
+         * Indicates if the user is verified.
+         */
         verified: {
             type: Boolean,
             default: false,
         },
+
+        /**
+         * The role of the user.
+         * Can be 'MEMBER' or 'OFFICIAL'.
+         */
         rol: {
             type: String,
             default: 'MEMBER',
             enum: ['MEMBER', 'OFFICIAL']
         },
+
+        /**
+         * The status of the user.
+         * Can be 'ACTIVE' or 'INACTIVE'.
+         */
         status: {
             type: String,
             default: 'ACTIVE',
@@ -30,11 +52,13 @@ const UserSchema = new Schema<IUser>(
         }
     },
     {
-        timestamps: true, // Para que guarde la fecha de creacion y actualizacion
-        versionKey: false // Para que no guarde datos por version
+        timestamps: true,
+        versionKey: false
     }
-)
+);
 
-// Implementamos el Schema en el modelo
-const UserModel = model('users', UserSchema)
-export default UserModel
+/**
+ * Mongoose model for the User entity.
+ */
+const UserModel = model<IUser>('users', UserSchema);
+export default UserModel;
