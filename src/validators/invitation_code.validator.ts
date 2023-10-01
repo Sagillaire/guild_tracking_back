@@ -1,5 +1,9 @@
 import Joi from "joi";
 
+/**
+ * Esquema de validación para datos de referidos.
+ * @type {Joi.ObjectSchema}
+ */
 export const ReferredSchema = Joi.object({
     code: Joi
         .string()
@@ -7,4 +11,4 @@ export const ReferredSchema = Joi.object({
     guild: Joi
         .string()
         .required()
-})
+});
