@@ -1,5 +1,9 @@
 import Joi from "joi";
 
+/**
+ * Esquema de validación para el inicio de sesión.
+ * @type {Joi.ObjectSchema}
+ */
 export const LoginSchema = Joi.object({
     username: Joi
         .string()
@@ -7,8 +11,12 @@ export const LoginSchema = Joi.object({
     password: Joi
         .string()
         .required()
-})
+});
 
+/**
+ * Esquema de validación para el registro.
+ * @type {Joi.ObjectSchema}
+ */
 export const RegisterSchema = Joi.object({
     username: Joi
         .string()
@@ -21,4 +29,4 @@ export const RegisterSchema = Joi.object({
         .required(),
     rol: Joi
         .string()
-})
+});
